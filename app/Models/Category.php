@@ -17,9 +17,7 @@ class Category extends Model
 
     public $timestamps = false;
 
-    /**
-     * @return HasMany<Product>
-     */
+    /** In deze categorie zitten alle gekoppelde producten. */
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

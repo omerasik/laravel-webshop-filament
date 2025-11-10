@@ -17,9 +17,7 @@ class Tag extends Model
 
     public $timestamps = false;
 
-    /**
-     * @return BelongsToMany<Product>
-     */
+    /** Deze tag is gekoppeld aan meerdere producten. */
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);

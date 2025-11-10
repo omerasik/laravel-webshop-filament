@@ -17,9 +17,7 @@ class Brand extends Model
 
     public $timestamps = false;
 
-    /**
-     * @return HasMany<Product>
-     */
+    /** Dit merk heeft meerdere producten in de catalogus. */
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
