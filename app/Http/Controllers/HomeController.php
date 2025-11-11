@@ -6,6 +6,7 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
+    // toon de homepagina
     public function __invoke(): View
     {
         return view('home');
