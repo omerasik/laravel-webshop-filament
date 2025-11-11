@@ -13,9 +13,24 @@ class BrandFactory extends Factory
 {
     protected $model = Brand::class;
 
+    private const BRANDS = [
+        'Studio Water & Zeep',
+        'Apotheek De Linde',
+        'Schoonheidshuis Bloom',
+        'Huidatelier Noord',
+        'Glow & Co.',
+        'Wellness aan de Schelde',
+        'Pure Balance Antwerp',
+        'Salon Van der Veen',
+        'Lief Huidlab',
+        'Botanica Gent',
+        'Polder Beauty',
+        'Zorgboetiek Lumen',
+    ];
+
     public function definition(): array
     {
-        $name = Str::title($this->faker->unique()->company());
+        $name = $this->faker->unique()->randomElement(self::BRANDS);
 
         return [
             'name' => $name,

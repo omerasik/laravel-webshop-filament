@@ -13,9 +13,23 @@ class CategoryFactory extends Factory
 {
     protected $model = Category::class;
 
+    private const CATEGORIES = [
+        'Gezichtsreiniging',
+        'Dag- en nachtcreme',
+        'Serums',
+        'Maskers',
+        'Lichaamsverzorging',
+        'Hand- en voetverzorging',
+        'Haar- en hoofdhuid',
+        'Bad & Douche',
+        'Make-up basics',
+        'Cadeausets',
+        'Wellness accessoires',
+    ];
+
     public function definition(): array
     {
-        $name = Str::title($this->faker->unique()->words(mt_rand(1, 2), true));
+        $name = $this->faker->unique()->randomElement(self::CATEGORIES);
 
         return [
             'name' => $name,

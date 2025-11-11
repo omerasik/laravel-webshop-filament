@@ -13,12 +13,30 @@ class TagFactory extends Factory
 {
     protected $model = Tag::class;
 
+    private const TAGS = [
+        'gevoelige huid',
+        'droge huid',
+        'glow',
+        'anti-aging',
+        'vitamine c',
+        'vegan',
+        'geurvrij',
+        'natuurlijk',
+        'hydraterend',
+        'kalmerend',
+        'zonbescherming',
+        'herstellend',
+        'scrub',
+        'massage',
+        'limited edition',
+    ];
+
     public function definition(): array
     {
-        $name = Str::title($this->faker->unique()->word());
+        $name = $this->faker->unique()->randomElement(self::TAGS);
 
         return [
-            'name' => $name,
+            'name' => Str::title($name),
             'slug' => Str::slug($name),
         ];
     }
