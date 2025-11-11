@@ -23,4 +23,15 @@
             @endif
         </a>
     </div>
+    <div class="navigation__links navigation__links--auth">
+        @auth
+            <form method="POST" action="{{ route('logout') }}" class="navigation__link">
+                @csrf
+                <button type="submit" class="link-reset">Uitloggen</button>
+            </form>
+        @else
+            <a href="{{ route('login') }}" class="navigation__link">Inloggen</a>
+            <a href="{{ route('register') }}" class="navigation__link">Registreren</a>
+        @endauth
+    </div>
 </nav>
