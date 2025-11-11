@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tag;
@@ -26,6 +27,7 @@ class ProductsController extends Controller
             [
                 'search' => ['nullable', 'string', 'max:120'],
                 'category' => ['nullable', 'integer', 'exists:categories,id'],
+                'brand' => ['nullable', 'integer', 'exists:brands,id'],
                 'tag' => ['nullable', 'integer', 'exists:tags,id'],
                 'min_price' => ['nullable', 'numeric', 'min:0'],
                 'max_price' => ['nullable', 'numeric', 'min:0'],
@@ -34,6 +36,7 @@ class ProductsController extends Controller
             [
                 'search' => 'zoekterm',
                 'category' => 'categorie',
+                'brand' => 'merk',
                 'tag' => 'tag',
                 'min_price' => 'minimumprijs',
                 'max_price' => 'maximumprijs',
@@ -43,6 +46,7 @@ class ProductsController extends Controller
         $filters = array_merge([
             'search' => null,
             'category' => null,
+            'brand' => null,
             'tag' => null,
             'min_price' => null,
             'max_price' => null,
@@ -60,6 +64,10 @@ class ProductsController extends Controller
             ->when(
                 $filters['category'],
                 fn ($query, int $categoryId) => $query->where('category_id', $categoryId),
+            )
+            ->when(
+                $filters['brand'],
+                fn ($query, int $brandId) => $query->where('brand_id', $brandId),
             )
             ->when(
                 $filters['tag'],
@@ -83,6 +91,7 @@ class ProductsController extends Controller
         return view('products.index', [
             'products' => $products,
             'categories' => Category::orderBy('name')->get(),
+            'brands' => Brand::orderBy('name')->get(),
             'tags' => Tag::orderBy('name')->get(),
             'filters' => $filters,
         ]);

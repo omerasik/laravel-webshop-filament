@@ -60,6 +60,21 @@
                 </div>
 
                 <div class="form-field">
+                    <label for="brand" class="form-label">Merk</label>
+                    <select id="brand" name="brand" class="form-select">
+                        <option value="">Alle merken</option>
+                        @foreach ($brands as $brand)
+                            <option
+                                value="{{ $brand->id }}"
+                                @selected((string) $brand->id === (string) ($filters['brand'] ?? ''))
+                            >
+                                {{ $brand->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-field">
                     <label for="tag" class="form-label">Tag</label>
                     <select id="tag" name="tag" class="form-select">
                         <option value="">Alle tags</option>
@@ -123,6 +138,12 @@
                     $categoryName = optional($categories->firstWhere('id', $filters['category']))?->name;
                     if ($categoryName) {
                         $activeFilters[] = "Categorie: {$categoryName}";
+                    }
+                }
+                if ($filters['brand']) {
+                    $brandName = optional($brands->firstWhere('id', $filters['brand']))?->name;
+                    if ($brandName) {
+                        $activeFilters[] = "Merk: {$brandName}";
                     }
                 }
                 if ($filters['tag']) {
@@ -208,7 +229,6 @@
         </section>
     </div>
 </x-layout>
-
 
 
 
