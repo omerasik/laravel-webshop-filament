@@ -1,4 +1,4 @@
-﻿@php
+@php
     use Illuminate\Support\Str;
     $favoriteIds = array_flip(app(\App\Services\FavoriteService::class)->ids());
 @endphp
@@ -203,7 +203,7 @@
             </div>
 
             <div class="pagination">
-                {{ $products->links() }}
+                {{ $products->links('vendor.pagination.custom') }}
             </div>
         </section>
     </div>
