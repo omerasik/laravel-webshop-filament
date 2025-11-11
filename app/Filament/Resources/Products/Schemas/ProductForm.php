@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Filament\Resources\Products\Schemas;
 
@@ -15,25 +15,60 @@ class ProductForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->default(null),
+                    ->label('Productnaam')
+                    ->helperText('De naam zoals klanten hem in de shop zien.')
+                    ->required()
+                    ->maxLength(255),
                 Textarea::make('description')
-                    ->default(null)
+                    ->label('Beschrijving')
+                    ->helperText('Vertel kort wat het product bijzonder maakt.')
+                    ->rows(6)
                     ->columnSpanFull(),
                 TextInput::make('price')
+                    ->label('Prijs')
+                    ->helperText('Inclusief btw, gebruik maximaal twee decimalen.')
                     ->numeric()
-                    ->default(null)
-                    ->prefix('$'),
+                    ->required()
+                    ->prefix('EUR ')
+                    ->minValue(0)
+                    ->rule('decimal:0,2'),
                 TextInput::make('stock')
+                    ->label('Voorraad')
+                    ->helperText('Het aantal beschikbare stuks in het magazijn.')
                     ->numeric()
-                    ->default(null),
+                    ->required()
+                    ->minValue(0)
+                    ->integer(),
                 FileUpload::make('image')
-                    ->image(),
+                    ->label('Afbeelding')
+                    ->helperText('Upload een scherpe foto van minimaal 1200px breed.')
+                    ->directory('products')
+                    ->disk('public')
+                    ->image()
+                    ->imageEditor()
+                    ->imagePreviewHeight('200')
+                    ->columnSpanFull(),
                 Select::make('category_id')
+                    ->label('Categorie')
+                    ->helperText('Kies de hoofdgroep waarin dit product valt.')
                     ->relationship('category', 'name')
-                    ->default(null),
+                    ->searchable()
+                    ->preload()
+                    ->required(),
                 Select::make('brand_id')
+                    ->label('Merk')
+                    ->helperText('Selecteer het merk zodat filters correct werken.')
                     ->relationship('brand', 'name')
-                    ->default(null),
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                Select::make('tags')
+                    ->label('Tags')
+                    ->helperText('Selecteer een of meerdere labels die bij het product passen.')
+                    ->relationship('tags', 'name')
+                    ->preload()
+                    ->multiple()
+                    ->searchable(),
             ]);
     }
 }

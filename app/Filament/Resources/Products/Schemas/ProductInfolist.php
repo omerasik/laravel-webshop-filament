@@ -13,28 +13,53 @@ class ProductInfolist
         return $schema
             ->components([
                 TextEntry::make('name')
+                    ->label('Productnaam')
+                    ->helperText('De naam zoals getoond in de webshop.')
                     ->placeholder('-'),
                 TextEntry::make('description')
+                    ->label('Beschrijving')
+                    ->helperText('Lange omschrijving voor klanten.')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 TextEntry::make('price')
+                    ->label('Prijs')
+                    ->helperText('Inclusief btw.')
                     ->money()
                     ->placeholder('-'),
                 TextEntry::make('stock')
+                    ->label('Voorraad')
+                    ->helperText('Aantal beschikbare stuks.')
                     ->numeric()
                     ->placeholder('-'),
                 ImageEntry::make('image')
-                    ->placeholder('-'),
+                    ->disk('public')
+                    ->visibility('public')
+                    ->label('Afbeelding')
+                    ->helperText('Publieke productfoto uit de opslag.')
+                    ->placeholder('-')
+                    ->height('200px'),
                 TextEntry::make('category.name')
-                    ->label('Category')
+                    ->label('Categorie')
+                    ->helperText('Hoofdgroep van het product.')
                     ->placeholder('-'),
                 TextEntry::make('brand.name')
-                    ->label('Brand')
+                    ->label('Merk')
+                    ->helperText('Gekoppeld merk voor filters.')
+                    ->placeholder('-'),
+                TextEntry::make('tags.name')
+                    ->label('Tags')
+                    ->helperText('Labels voor marketing en filters.')
+                    ->badge()
+                    ->separator(', ')
                     ->placeholder('-'),
                 TextEntry::make('created_at')
+                    ->label('Aangemaakt op')
+                    ->helperText('Datum waarop het product werd ingevoerd.')
                     ->dateTime()
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Laatst bijgewerkt')
+                    ->helperText('Laatste onderhoud van dit record.')
                     ->dateTime()
                     ->placeholder('-'),
             ]);
